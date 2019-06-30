@@ -12,6 +12,7 @@ object Utils {
         return firstName to lastName
     }
 
+    /* Преобразование в латиницу */
     fun transliteration(payload: String, divider: String = " "): String {
         /* Определение словаря */
         val dictionary = hashMapOf(
@@ -47,32 +48,81 @@ object Utils {
             "ь" to "",
             "э" to "e",
             "ю" to "yu",
-            "я" to "ya"
+            "я" to "ya",
+            "А" to "A",
+            "Б" to "B",
+            "В" to "V",
+            "Г" to "G",
+            "Д" to "D",
+            "Е" to "E",
+            "Ё" to "E",
+            "Ж" to "ZH",
+            "З" to "Z",
+            "И" to "I",
+            "Й" to "I",
+            "К" to "K",
+            "Л" to "L",
+            "М" to "M",
+            "Н" to "N",
+            "О" to "O",
+            "П" to "P",
+            "Р" to "R",
+            "С" to "S",
+            "Т" to "T",
+            "У" to "U",
+            "Ф" to "F",
+            "Х" to "H",
+            "Ц" to "C",
+            "Ч" to "CH",
+            "Ш" to "SH",
+            "Щ" to "SH'",
+            "Ъ" to "",
+            "Ы" to "I",
+            "Ь" to "",
+            "Э" to "E",
+            "Ю" to "Yu",
+            "Я" to "YA",
+            " " to divider
         )
 
-        return ""
+        var result: String = ""
+        var elem: String?
+
+        /* Перебор элементов payload
+        * При отсутсвии рассматриваемого символа в слове
+        * Он остаётся без изменений*/
+        for (char in payload) {
+            elem = dictionary.get(char.toString())
+            if (elem != null) {
+                result += elem
+            } else {
+                result += char.toString()
+            }
+        }
+
+        return result
     }
 
     /* Получение инициалов */
     fun toInitials(firstName: String?, lastName: String?): String? {
-        var firstLetter:String? = null
-        var secondLetter:String? = null
+        var firstLetter: String? = null
+        var secondLetter: String? = null
 
         /* Получение первых прописных первых символов */
-        if(firstName != null && firstName != "" && firstName != " ")
+        if (firstName != null && firstName != "" && firstName != " ")
             firstLetter = (firstName?.get(0).toUpperCase()).toString()
 
-        if(lastName != null && lastName != "" && lastName != " ")
+        if (lastName != null && lastName != "" && lastName != " ")
             secondLetter = (lastName?.get(0).toUpperCase()).toString()
 
         /* Проверка полученных инициалов */
-        if(firstLetter != null && secondLetter == null)
+        if (firstLetter != null && secondLetter == null)
             return firstLetter
 
-        if(secondLetter != null && firstLetter == null)
+        if (secondLetter != null && firstLetter == null)
             return secondLetter
 
-        if(firstLetter == null && secondLetter == null) {
+        if (firstLetter == null && secondLetter == null) {
             return null
         }
 
