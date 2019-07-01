@@ -5,6 +5,10 @@ import java.util.*
 
 object Utils {
     fun parseFullName(fullName: String?): Pair<String?, String?> {
+        if(fullName == null || fullName == "" || fullName == " ") {
+            return null to null
+        }
+
         val parts: List<String>? = fullName?.split(" ")
         val firstName = parts?.getOrNull(0)
         val lastName = parts?.getOrNull(1)
