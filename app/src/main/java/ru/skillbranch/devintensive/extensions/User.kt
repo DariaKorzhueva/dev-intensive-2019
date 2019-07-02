@@ -94,6 +94,9 @@ fun Date.humanizeDiff(date: Date = Date()): String {
         if (seconds < 1)
             return "только что"
 
+        if (seconds in 1..45)
+            return "несколько секунд назад"
+
         if (seconds in 45..75)
             return "минуту назад"
 
@@ -122,6 +125,9 @@ fun Date.humanizeDiff(date: Date = Date()): String {
 
         if (seconds < 1)
             return "только что"
+
+        if (seconds in 1..45)
+            return "через несколько секунд"
 
         if (seconds in 45..75)
             return "через минуту"
