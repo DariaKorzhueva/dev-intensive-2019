@@ -26,6 +26,7 @@ fun User.toUserView(): UserView {
 
 /* Усечение строки */
 fun String.truncate(number: Int = 16): String {
+    var truncString = this.trim()
 
     /* Если длина строки меньше количества убираемых символов */
     if (this.length - number < 0) {
@@ -36,7 +37,7 @@ fun String.truncate(number: Int = 16): String {
             return this
     }
 
-    var truncString = this.dropLast(this.length - number)
+   truncString = truncString.dropLast(this.length - number)
 
     var i = 3
 
