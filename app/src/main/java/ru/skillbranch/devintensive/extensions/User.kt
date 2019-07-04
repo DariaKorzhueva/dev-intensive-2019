@@ -40,14 +40,14 @@ fun String.truncate(number: Int = 16): String {
     }
 
     /* Удаление последних символов, не являющихся пробелами */
-   truncString = this.dropLast(this.length - number)
+    truncString = this.dropLast(this.length - number)
 
     /* Если последний символ после усечения - пробел, то он удаляется*/
     if (this[number - 1].toString() == " ") {
-        truncString = truncString.trim()
+        truncString = truncString.trim(' ')
     }
 
-    truncString = truncString.padEnd(truncString.length+3, '.')
+    truncString = truncString.padEnd(truncString.length + 3, '.')
 
     return truncString
 }
@@ -55,5 +55,26 @@ fun String.truncate(number: Int = 16): String {
 /* Очищение строки от html-разметки */
 fun String.stripHtml(): String {
 
-    return ""
+    var stringLength = this.length
+    var newString: String = ""
+    var i = 0
+
+    /* Цикл пока не просмотрена вся строка */
+    while (stringLength > i) {
+        /* Если встреченный символ - < */
+        if (this[i] == '<') {
+            /* Цикл пока не найдена закрывающая >*/
+            while (this[i] != '>' && stringLength > i) {
+                i++
+            }
+            i++
+        } else {
+            newString += this[i]
+            i++
+        }
+    }
+
+    newString = newString.replace("\\s+".toRegex(), " ").replace("[&<>'/\"]".toRegex(), " ")
+
+    return newString
 }
