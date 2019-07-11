@@ -95,8 +95,6 @@ enum class TimeUnits {
                     return "$strNumber дней"
             }
         }
-
-        return ""
     }
 }
 
