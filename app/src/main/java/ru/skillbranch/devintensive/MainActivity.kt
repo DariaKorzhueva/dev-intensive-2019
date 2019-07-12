@@ -15,7 +15,7 @@ import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.models.Bender
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import ru.skillbranch.devintensive.extensions.isKeyboardOpen
+
 
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEditorActionListener {

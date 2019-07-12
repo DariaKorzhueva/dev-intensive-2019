@@ -8,9 +8,8 @@ import android.R.attr.bottom
 import android.opengl.ETC1.getHeight
 
 
-
 /* Скрытие клавиатуры */
-fun Activity.hideKeyboard(){
+fun Activity.hideKeyboard() {
     val imm = this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
 
     /* Определение текущего фокуса */
@@ -20,18 +19,17 @@ fun Activity.hideKeyboard(){
     imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
 }
 
-fun Activity.isKeyboardOpen():Boolean{
-    var view = this.getCurrentFocus().rootView
+fun Activity.isKeyboardOpen(): Boolean {
+    val rootView = this.currentFocus
+    val rect = Rect().apply { rootView.getWindowVisibleDisplayFrame(this) }
 
-    val r = Rect()
-    view.getWindowVisibleDisplayFrame(r)
+    val screenHeight = rootView.height
 
-    val screenHeight = view.getRootView().getHeight()
-    val heightDifference = screenHeight - (r.bottom - r.top)
+    val keypadHeight = screenHeight - rect.bottom
 
-    if(heightDifference > 100){
+    if (keypadHeight > screenHeight * 0.15) {
         return true
     }
-
     return false
+
 }
