@@ -38,6 +38,6 @@ fun Activity.isKeyboardOpen(): Boolean {
     return checkKeyboard()
 }
 
-fun Activity.isKeyboardClose(): Boolean {
+fun Activity.isKeyboardClosed(): Boolean {
     return !checkKeyboard()
 }
