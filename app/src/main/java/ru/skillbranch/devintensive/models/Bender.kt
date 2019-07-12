@@ -32,6 +32,9 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
     }
 
     fun validate(answer: String, question: Question): String {
+        if(answer == "")
+            return ""
+
         when (question) {
             Question.NAME -> {
                 if (answer[0] != answer[0].toUpperCase())
@@ -53,6 +56,7 @@ class Bender(var status: Status = Status.NORMAL, var question: Question = Questi
                 if (Regex("[0-9]{8}").find(answer) != null)
                     return "Серийный номер содержит только цифры, и их 7"
             }
+            else -> return ""
         }
 
         return ""
