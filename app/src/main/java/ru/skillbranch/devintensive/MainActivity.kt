@@ -14,13 +14,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.models.Bender
 import android.view.inputmethod.EditorInfo
-import android.widget.Toast
-
-
+import ru.skillbranch.devintensive.models.Bender.Question
 
 class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEditorActionListener {
     lateinit var benderImage: ImageView
-    lateinit var textTxt: TextView
+    lateinit var textView : TextView
     lateinit var messageEt: EditText
     lateinit var sendBtn: ImageView
 
@@ -30,9 +28,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         benderImage = iv_bender
-        textTxt = tv_text
+        textView = tv_text
         messageEt = et_message
         sendBtn = iv_send
 
@@ -46,7 +43,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         var (r, g, b) = benderObj.status.color
         benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
 
-        textTxt.text = benderObj.askQuestion()
+        textView.text = benderObj.askQuestion()
 
         sendBtn.setOnClickListener(this)
         messageEt.setOnEditorActionListener(this)
@@ -92,23 +89,33 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.iv_send) {
-            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
-            messageEt.setText("")
-            var (r, g, b) = color
-            benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
-            textTxt.text = phrase
+            if(benderObj.question.validate(messageEt.text.toString()))
+                sendAnswer()
+            else
+                printErrorMessage()
 
             hideKeyboard()
         }
     }
 
+    private fun printErrorMessage(){
+        val errorMessage = when(benderObj.question){
+            Question.NAME -> "Имя должно начинаться с заглавной буквы"
+            Question.PROFESSION -> "Профессия должна начинаться со строчной буквы"
+            Question.MATERIAL -> "Материал не должен содержать цифр"
+            Question.BDAY -> "Год моего рождения должен содержать только цифры"
+            Question.SERIAL -> "Серийный номер содержит только цифры, и их 7"
+            else -> "На этом все, вопросов больше нет"
+        }
+
+        textView.text = errorMessage + "\n" + benderObj.question.question
+
+        messageEt.setText("")
+    }
+
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
-            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
-            messageEt.setText("")
-            var (r, g, b) = color
-            benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
-            textTxt.text = phrase
+            sendAnswer()
 
             hideKeyboard()
 
@@ -116,5 +123,13 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         }
 
         return false
+    }
+
+    private fun sendAnswer(){
+        val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
+        messageEt.setText("")
+        var (r, g, b) = color
+        benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
+        textView.text = phrase
     }
 }
