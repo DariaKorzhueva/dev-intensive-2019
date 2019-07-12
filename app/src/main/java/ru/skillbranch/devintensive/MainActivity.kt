@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -12,8 +13,12 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.skillbranch.devintensive.extensions.hideKeyboard
 import ru.skillbranch.devintensive.models.Bender
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+
+
+class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEditorActionListener {
     lateinit var benderImage: ImageView
     lateinit var textTxt: TextView
     lateinit var messageEt: EditText
@@ -44,6 +49,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         textTxt.text = benderObj.askQuestion()
 
         sendBtn.setOnClickListener(this)
+        messageEt.setOnEditorActionListener(this)
     }
 
     override fun onRestart() {
@@ -94,5 +100,21 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
             hideKeyboard()
         }
+    }
+
+    override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString().toLowerCase())
+            messageEt.setText("")
+            var (r, g, b) = color
+            benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
+            textTxt.text = phrase
+
+            hideKeyboard()
+
+            return true
+        }
+
+        return false
     }
 }

@@ -47,7 +47,9 @@
                 android:hint="Введите текст"
                 android:paddingTop="@dimen/spacing_normal_16"
                 android:layout_marginLeft="@dimen/spacing_normal_16"
-                android:layout_marginRight="@dimen/spacing_normal_16"/>
+                android:layout_marginRight="@dimen/spacing_normal_16"
+                android:imeOptions="actionDone"
+                android:singleLine="true"/>
 
         <ImageView
                 android:id="@+id/iv_send"
