@@ -19,7 +19,7 @@ fun Activity.hideKeyboard() {
     imm.hideSoftInputFromWindow(view!!.getWindowToken(), 0)
 }
 
-fun Activity.isKeyboardOpen(): Boolean {
+fun Activity.checkKeyboard(): Boolean {
     val rootView = this.currentFocus
     val rect = Rect().apply { rootView.getWindowVisibleDisplayFrame(this) }
 
@@ -32,4 +32,12 @@ fun Activity.isKeyboardOpen(): Boolean {
     }
     return false
 
+}
+
+fun Activity.isKeyboardOpen(): Boolean {
+    return checkKeyboard()
+}
+
+fun Activity.isKeyboardClose(): Boolean {
+    return !checkKeyboard()
 }
