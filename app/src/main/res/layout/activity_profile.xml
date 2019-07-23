@@ -22,13 +22,15 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/spacing_normal_16">
-            <ImageButton android:layout_width="@dimen/btn_round_size_40"
-                         android:layout_height="@dimen/btn_round_size_40"
-                         android:background="@drawable/btn_round_bg"
-                         android:src="@drawable/ic_brightness_high_black_24dp"
-                         android:layout_toLeftOf="@id/iv_avatar"
-                         android:layout_marginRight="@dimen/spacing_huge_32"
-                         android:layout_marginTop="36dp"/>
+            <ImageButton
+                    android:id="@+id/btn_switch_theme"
+                    android:layout_width="@dimen/btn_round_size_40"
+                    android:layout_height="@dimen/btn_round_size_40"
+                    android:background="@drawable/btn_round_bg"
+                    android:src="@drawable/ic_brightness_high_black_24dp"
+                    android:layout_toLeftOf="@id/iv_avatar"
+                    android:layout_marginRight="@dimen/spacing_huge_32"
+                    android:layout_marginTop="36dp"/>
 
             <ImageView
                     android:id="@+id/iv_avatar"
@@ -37,17 +39,19 @@
                     android:src="@drawable/avatar_default"
                     android:layout_centerHorizontal="true"/>
 
-            <ImageButton android:layout_width="@dimen/btn_round_size_40"
-                         android:layout_height="@dimen/btn_round_size_40"
-                         android:background="@drawable/btn_round_bg"
-                         android:src="@drawable/ic_edit_black_24dp"
-                         android:layout_toRightOf="@id/iv_avatar"
-                         android:layout_marginLeft="@dimen/spacing_huge_32"
-                         android:layout_marginTop="36dp"/>
+            <ImageButton
+                    android:id="@+id/btn_edit"
+                    android:layout_width="@dimen/btn_round_size_40"
+                    android:layout_height="@dimen/btn_round_size_40"
+                    android:background="@drawable/btn_round_bg"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    android:layout_toRightOf="@id/iv_avatar"
+                    android:layout_marginLeft="@dimen/spacing_huge_32"
+                    android:layout_marginTop="36dp"/>
 
             <TextView
                     style="@style/Profile.Header.Nickname"
-                    android:id="@+id/tv_name"
+                    android:id="@+id/tv_nick_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/iv_avatar"
@@ -60,7 +64,7 @@
                     android:id="@+id/tv_rank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_name"
+                    android:layout_below="@id/tv_nick_name"
                     android:layout_centerHorizontal="true"
                     android:text="Junior Android Developer"/>
         </RelativeLayout>
@@ -79,6 +83,7 @@
                       android:paddingBottom="@dimen/spacing_normal_16">
             <TextView
                     style="@style/Profile.Metrics.Value"
+                    android:id="@+id/tv_rating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
@@ -108,6 +113,7 @@
         >
             <TextView
                     style="@style/Profile.Metrics.Value"
+                    android:id="@+id/tv_respect"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@android:color/white"
@@ -190,11 +196,15 @@
                 android:src="@drawable/ic_about"/>
 
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/wr_about"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/ic_avatar"
                 android:layout_marginLeft="@dimen/spacing_normal_16"
-                android:layout_below="@id/wr_first_name">
+                android:layout_below="@id/wr_first_name"
+                app:counterEnabled="true"
+                app:counterMaxLength="128"
+                >
             <EditText
                     style="@style/Profile.EditText"
                     android:id="@+id/et_about"
@@ -226,11 +236,11 @@
                 android:src="@drawable/ic_repo"/>
 
         <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/wr_repository"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/ic_avatar"
                 android:layout_marginLeft="@dimen/spacing_normal_16"
-                android:layout_marginRight="@dimen/spacing_normal_16"
                 android:layout_below="@id/wr_first_name"
                 android:layout_weight="1">
             <EditText
@@ -243,10 +253,13 @@
                     android:imeOptions="actionDone"/>
         </com.google.android.material.textfield.TextInputLayout>
 
-        <ImageView android:layout_width="24dp"
-                   android:layout_height="24dp"
-                   android:src="@drawable/ic_eye_24dp"
-                   android:layout_gravity="center_vertical"/>
+        <ImageView
+                android:id="@+id/ic_eye"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_eye_24dp"
+                android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/spacing_normal_16"/>
 
     </LinearLayout>
 </LinearLayout>
