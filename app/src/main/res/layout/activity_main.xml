@@ -69,5 +69,54 @@
         </RelativeLayout>
     </FrameLayout>
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:background="@color/color_primary_light">
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:paddingTop="@dimen/spacing_normal_16"
+                      android:paddingBottom="@dimen/spacing_normal_16">
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@android:color/white"
+                      android:textSize="@dimen/font_large_20"
+                      android:text="0"
+                      android:fontFamily="sans-serif-medium"
+                      android:drawableLeft="@drawable/ic_sp_24"
+                      android:drawablePadding="@dimen/spacing_tiny_4"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@android:color/white"
+                      android:textSize="@dimen/font_normal_16"
+                      android:text="@string/profile_label_rating"/>
+        </LinearLayout>
+        <LinearLayout android:layout_width="0dp"
+                      android:layout_height="wrap_content"
+                      android:layout_weight="1"
+                      android:orientation="vertical"
+                      android:gravity="center"
+                      android:paddingTop="@dimen/spacing_normal_16"
+                      android:paddingBottom="@dimen/spacing_normal_16"
+        >
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@android:color/white"
+                      android:textSize="@dimen/font_large_20"
+                      android:text="0"
+                      android:fontFamily="sans-serif-medium"
+                      android:drawableLeft="@drawable/ic_respect_24"
+                      android:drawablePadding="@dimen/spacing_tiny_4"/>
+            <TextView android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:textColor="@android:color/white"
+                      android:textSize="@dimen/font_normal_16"
+                      android:text="@string/profile_label_respect"
+                      android:fontFamily="sans-serif-medium"/>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
