@@ -2,6 +2,7 @@ package ru.skillbranch.devintensive.repositories
 
 import android.content.SharedPreferences
 import android.preference.PreferenceManager
+import androidx.appcompat.app.AppCompatDelegate
 import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.models.Profile
 
@@ -14,6 +15,7 @@ object PreferencesRepository {
     private const val REPOSITORY = "REPOSITORY"
     private const val RATING = "RATING"
     private const val RESPECT = "RESPECT"
+    private const val APP_THEME = "APP_THEME"
 
     /* Инициализация prefs в момент первого обращения
     * Получение дефолтного значения SharedPreferences */
@@ -21,6 +23,14 @@ object PreferencesRepository {
         val ctx = App.applicationContext()
         PreferenceManager.getDefaultSharedPreferences(ctx)
     }
+
+    /* Сохранение темы */
+    fun saveAppTheme(theme: Int) {
+        putValue(APP_THEME to theme)
+    }
+
+    /* Получение информации о теме */
+    fun getAppTheme():Int = prefs.getInt(APP_THEME,AppCompatDelegate.MODE_NIGHT_NO)
 
     /* Сохранение профиля */
     fun saveProfile(profile: Profile) {
@@ -36,6 +46,7 @@ object PreferencesRepository {
         }
     }
 
+    /* Получение инфорамции о профиле */
     fun getProfile(): Profile? = Profile (
         prefs.getString(FIRST_NAME, "" )!!,
         prefs.getString(LAST_NAME, "" )!!,
