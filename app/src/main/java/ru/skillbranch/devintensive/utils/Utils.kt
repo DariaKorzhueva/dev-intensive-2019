@@ -1,8 +1,5 @@
 package ru.skillbranch.devintensive.utils
 
-import ru.skillbranch.devintensive.models.User
-import java.util.*
-
 object Utils {
     fun parseFullName(fullName: String?): Pair<String?, String?> {
         if(fullName == null || fullName == "" || fullName == " ") {
@@ -60,7 +57,7 @@ object Utils {
             "Д" to "D",
             "Е" to "E",
             "Ё" to "E",
-            "Ж" to "ZH",
+            "Ж" to "Zh",
             "З" to "Z",
             "И" to "I",
             "Й" to "I",
@@ -77,15 +74,15 @@ object Utils {
             "Ф" to "F",
             "Х" to "H",
             "Ц" to "C",
-            "Ч" to "CH",
-            "Ш" to "SH",
-            "Щ" to "SH'",
+            "Ч" to "Ch",
+            "Ш" to "Sh",
+            "Щ" to "Sh'",
             "Ъ" to "",
             "Ы" to "I",
             "Ь" to "",
             "Э" to "E",
             "Ю" to "Yu",
-            "Я" to "YA",
+            "Я" to "Ya",
             " " to divider
         )
 
