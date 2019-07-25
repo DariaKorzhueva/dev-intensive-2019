@@ -7,8 +7,6 @@ import ru.skillbranch.devintensive.App
 import ru.skillbranch.devintensive.models.Profile
 
 object PreferencesRepository {
-    private const val NICK_NAME = "NICK_NAME"
-    private const val RANK = "RANK"
     private const val FIRST_NAME = "FIRST_NAME"
     private const val LAST_NAME = "LAST_NAME"
     private const val ABOUT = "ABOUT"
@@ -35,8 +33,6 @@ object PreferencesRepository {
     /* Сохранение профиля */
     fun saveProfile(profile: Profile) {
         with(profile) {
-            putValue(NICK_NAME to nickName)
-            putValue(RANK to rank)
             putValue(FIRST_NAME to firstName)
             putValue(LAST_NAME to lastName)
             putValue(ABOUT to about)
