@@ -35,6 +35,10 @@ class CircleImageView @JvmOverloads constructor(context: Context, attrs: Attribu
         }
     }
 
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+    }
+
     fun getBorderWidth():Int{
         return borderWidth
     }
