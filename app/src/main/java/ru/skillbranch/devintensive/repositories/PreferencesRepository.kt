@@ -43,7 +43,7 @@ object PreferencesRepository {
     }
 
     /* Получение инфорамции о профиле */
-    fun getProfile(): Profile? = Profile (
+    fun getProfile() = Profile(
         prefs.getString(FIRST_NAME, "")!!,
         prefs.getString(LAST_NAME, "")!!,
         prefs.getString(ABOUT, "")!!,
