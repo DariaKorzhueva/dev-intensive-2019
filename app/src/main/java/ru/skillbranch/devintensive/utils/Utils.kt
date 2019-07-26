@@ -2,7 +2,7 @@ package ru.skillbranch.devintensive.utils
 
 object Utils {
     fun parseFullName(fullName: String?): Pair<String?, String?> {
-        if(fullName == null || fullName == "" || fullName == " ") {
+        if (fullName == null || fullName == "" || fullName == " ") {
             return null to null
         }
 
@@ -128,5 +128,64 @@ object Utils {
         }
 
         return "$firstLetter$secondLetter"
+    }
+
+    /* Валидация пути репозитория */
+    fun validateRepositoryPath(path: String): Boolean {
+        val exceptions = listOf(
+            "enterprise",
+            "features",
+            "topics",
+            "collections",
+            "trending",
+            "events",
+            "marketplace",
+            "pricing",
+            "nonprofit",
+            "customer-stories",
+            "security",
+            "login",
+            "join"
+        )
+
+        val links = listOf(
+            "http://github.com/",
+            "https://github.com/",
+            "https://www.github.com/",
+            "www.github.com/",
+            "github.com/"
+        )
+
+        /* Обработка первых типов ссылок */
+        if (path.startsWith(links[0]) || path.startsWith(links[1]) || path.startsWith(links[2])) {
+            val subStr = path.split('/')
+
+            if(subStr[3] == "" || subStr.size != 4)
+                return false
+
+            exceptions.forEach{
+                if(subStr[3] == it)
+                    return false
+            }
+
+            return true
+        }
+
+        /* Обработка вторых типов ссылок */
+        if (path.startsWith(links[3]) || path.startsWith(links[4])) {
+            val subStr = path.split('/')
+
+            if(subStr[1] == "" || subStr.size != 2)
+                return false
+
+            exceptions.forEach{
+                if(subStr[1] == it)
+                    return false
+            }
+
+            return true
+        }
+
+        return false;
     }
 }
