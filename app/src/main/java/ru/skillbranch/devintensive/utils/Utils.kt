@@ -131,7 +131,10 @@ object Utils {
     }
 
     /* Валидация пути репозитория */
-    fun validateRepositoryPath(path: String): Boolean {
+    fun isValidRepositoryPath(path: String): Boolean {
+        if(path == "")
+            return true
+
         val exceptions = listOf(
             "enterprise",
             "features",

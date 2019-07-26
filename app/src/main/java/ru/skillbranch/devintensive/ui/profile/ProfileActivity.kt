@@ -4,6 +4,8 @@ import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
@@ -14,6 +16,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils.isValidRepositoryPath
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
 
 
@@ -24,6 +27,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private lateinit var viewModel: ProfileViewModel
     var isEditMode = false
+    var isValidRepository = true;
     lateinit var viewFields: Map<String, TextView>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,6 +37,28 @@ class ProfileActivity : AppCompatActivity() {
         initViews(savedInstanceState)
         initViewModel()
         Log.d("M_ProfileActivity", "onCreate")
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        et_repository.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                if (!isValidRepositoryPath(s.toString())) {
+                    wr_repository.error = "Невалидный адрес репозитория"
+                    isValidRepository = false
+                } else {
+                    isValidRepository = true
+                    wr_repository.isErrorEnabled = false
+                }
+            }
+        })
     }
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -80,6 +106,12 @@ class ProfileActivity : AppCompatActivity() {
         btn_edit.setOnClickListener {
             /* Сохранение информации в профиль */
             if (isEditMode) {
+                if(!isValidRepository)
+                {
+                    et_repository.text.clear()
+                    wr_repository.isErrorEnabled = false
+                }
+
                 saveProfileInfo()
             }
 
