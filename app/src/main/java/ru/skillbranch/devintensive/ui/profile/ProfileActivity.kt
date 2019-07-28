@@ -1,12 +1,13 @@
 package ru.skillbranch.devintensive.ui.profile
 
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
+import android.content.Context
+import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.util.TypedValue
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -16,8 +17,10 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_profile.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.Profile
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.utils.Utils.isValidRepositoryPath
 import ru.skillbranch.devintensive.viewmodels.ProfileViewModel
+import kotlin.math.roundToInt
 
 
 class ProfileActivity : AppCompatActivity() {
@@ -84,9 +87,13 @@ class ProfileActivity : AppCompatActivity() {
             for ((k, v) in viewFields) {
                 v.text = it[k].toString()
             }
+
+            val initials = Utils.toInitials(it["firstName"].toString(), it["lastName"].toString()) ?: ""
+            drawDefaultAvatar(initials)
         }
     }
 
+    /* Инициализация views */
     private fun initViews(savedInstanceState: Bundle?) {
         /* Карта, связывающая ключ и представление */
         viewFields = mapOf(
@@ -106,8 +113,7 @@ class ProfileActivity : AppCompatActivity() {
         btn_edit.setOnClickListener {
             /* Сохранение информации в профиль */
             if (isEditMode) {
-                if(!isValidRepository)
-                {
+                if (!isValidRepository) {
                     et_repository.text.clear()
                     wr_repository.isErrorEnabled = false
                 }
@@ -124,6 +130,7 @@ class ProfileActivity : AppCompatActivity() {
         }
     }
 
+    /* Отобразить текущий режим */
     private fun showCurerentMode(isEdit: Boolean) {
         val info = viewFields.filter { setOf("firstName", "lastName", "about", "repository").contains(it.key) }
 
@@ -171,6 +178,34 @@ class ProfileActivity : AppCompatActivity() {
         ).apply {
             viewModel.saveProfileData(this)
         }
+    }
+
+    /* Аватар по умолчанию */
+    private fun drawDefaultAvatar(initials: String) {
+        val bitmap = convertTextToBitmap(initials, 18f, Color.WHITE)
+        val drawable = BitmapDrawable(resources, bitmap)
+
+        iv_avatar.setImageDrawable(drawable)
+    }
+
+    /* Преобразование текста в Bitmap */
+    private fun convertTextToBitmap(text: String, textSize: Float, textColor: Int): Bitmap {
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+
+        paint.textSize = (textSize * resources.displayMetrics.density).roundToInt().toFloat()
+        paint.color = textColor
+        paint.textAlign = Paint.Align.CENTER
+
+        val image = Bitmap.createBitmap(112, 1162, Bitmap.Config.ARGB_8888)
+
+        val value = TypedValue()
+        this.theme.resolveAttribute(R.attr.colorAccent, value, true)
+        image.eraseColor(value.data)
+
+        val canvas = Canvas(image)
+        canvas.drawText(text, 56F, 56F + paint.textSize / 3, paint)
+
+        return image
     }
 }
 
