@@ -181,8 +181,8 @@ class ProfileActivity : AppCompatActivity() {
     }
 
     /* Аватар по умолчанию */
-    private fun drawDefaultAvatar(initials: String) {
-        val bitmap = convertTextToBitmap(initials, 18f, Color.WHITE)
+    private fun drawDefaultAvatar(initials: String, textSize: Float = 48f, color: Int = Color.WHITE) {
+        val bitmap = convertTextToBitmap(initials, textSize, color)
         val drawable = BitmapDrawable(resources, bitmap)
 
         iv_avatar.setImageDrawable(drawable)
@@ -190,21 +190,22 @@ class ProfileActivity : AppCompatActivity() {
 
     /* Преобразование текста в Bitmap */
     private fun convertTextToBitmap(text: String, textSize: Float, textColor: Int): Bitmap {
-        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        val dp = resources.displayMetrics.density.roundToInt()
 
-        paint.textSize = (textSize * resources.displayMetrics.density).roundToInt().toFloat()
+        val paint = Paint(Paint.ANTI_ALIAS_FLAG)
+        paint.textSize = textSize*dp
         paint.color = textColor
         paint.textAlign = Paint.Align.CENTER
 
-        val image = Bitmap.createBitmap(112, 1162, Bitmap.Config.ARGB_8888)
+        val image = Bitmap.createBitmap(112*dp, 112*dp, Bitmap.Config.ARGB_8888)
 
         val value = TypedValue()
         this.theme.resolveAttribute(R.attr.colorAccent, value, true)
         image.eraseColor(value.data)
 
         val canvas = Canvas(image)
-        canvas.drawText(text, 56F, 56F + paint.textSize / 3, paint)
-
+        canvas.drawText(text, 56f*dp, 56f*dp + paint.textSize/3, paint)
+        
         return image
     }
 }
