@@ -153,7 +153,7 @@ class CircleImageView : ImageView {
     }
 
     @Dimension
-    fun getBorderWidth(): Float = ((mBorderWidth / resources.displayMetrics.density).roundToInt() * 2.0f)
+    fun getBorderWidth(): Int = ((mBorderWidth / resources.displayMetrics.density).roundToInt() * 2.0f).toInt()
 
     fun setBorderWidth(@Dimension dp: Int) {
         mBorderWidth = (dp * resources.displayMetrics.density).toInt()
@@ -283,13 +283,14 @@ class CircleImageView : ImageView {
         mBitmapWidth = mBitmap!!.width
 
         mBorderRect.set(calculateBounds())
-        mBorderRadius =
-            Math.min((mBorderRect.height() - mBorderWidth) / 2.0f, (mBorderRect.width() - mBorderWidth) / 2.0f)
+        mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2.0f, (mBorderRect.width() - mBorderWidth) / 2.0f)
 
         mDrawableRect.set(mBorderRect)
+
         if (mBorderWidth > 0) {
             mDrawableRect.inset(mBorderWidth - 1.0f, mBorderWidth - 1.0f)
         }
+
         mDrawableRadius = Math.min(mDrawableRect.height() / 2.0f, mDrawableRect.width() / 2.0f)
 
         applyColorFilter()
@@ -330,11 +331,6 @@ class CircleImageView : ImageView {
         mShaderMatrix.postTranslate((dx + 0.5f).toInt() + mDrawableRect.left, (dy + 0.5f).toInt() + mDrawableRect.top)
 
         mBitmapShader!!.setLocalMatrix(mShaderMatrix)
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    override fun onTouchEvent(event: MotionEvent): Boolean {
-        return inTouchableArea(event.x, event.y) && super.onTouchEvent(event)
     }
 
     private fun inTouchableArea(x: Float, y: Float): Boolean {
