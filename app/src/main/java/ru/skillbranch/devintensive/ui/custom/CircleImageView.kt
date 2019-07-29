@@ -39,7 +39,7 @@ class CircleImageView : ImageView {
     private val mCircleBackgroundPaint = Paint()
 
     private var mBorderColor = DEFAULT_BORDER_COLOR
-    private var mBorderWidth = DEFAULT_BORDER_WIDTH
+    private var mBorderWidth = DEFAULT_BORDER_WIDTH * resources.displayMetrics.density
 
     private var mBitmap: Bitmap? = null
     private var mBitmapShader: BitmapShader? = null
@@ -64,7 +64,7 @@ class CircleImageView : ImageView {
 
         val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0)
 
-        mBorderWidth = a.getDimensionPixelSize(R.styleable.CircleImageView_cv_borderWidth, DEFAULT_BORDER_WIDTH)
+        mBorderWidth = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, mBorderWidth)
         mBorderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
 
         a.recycle()
@@ -153,10 +153,10 @@ class CircleImageView : ImageView {
     }
 
     @Dimension
-    fun getBorderWidth(): Int = ((mBorderWidth / resources.displayMetrics.density).roundToInt() * 2.0f).toInt()
+    fun getBorderWidth(): Int = (mBorderWidth/resources.displayMetrics.density).roundToInt()
 
     fun setBorderWidth(@Dimension dp: Int) {
-        mBorderWidth = (dp * resources.displayMetrics.density).toInt()
+        mBorderWidth = dp * resources.displayMetrics.density
         setup()
     }
 
