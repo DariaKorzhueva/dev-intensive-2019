@@ -205,7 +205,7 @@ class ProfileActivity : AppCompatActivity() {
 
         val canvas = Canvas(image)
         canvas.drawText(text, 56f*dp, 56f*dp + paint.textSize/3, paint)
-        
+
         return image
     }
 }

@@ -19,6 +19,7 @@ import androidx.annotation.Dimension
 import androidx.annotation.DrawableRes
 import androidx.annotation.RequiresApi
 import androidx.core.content.ContextCompat
+import kotlin.math.roundToInt
 
 class CircleImageView : ImageView {
     companion object {
@@ -152,7 +153,7 @@ class CircleImageView : ImageView {
     }
 
     @Dimension
-    fun getBorderWidth(): Int = mBorderWidth
+    fun getBorderWidth(): Float = ((mBorderWidth / resources.displayMetrics.density).roundToInt() * 2.0f)
 
     fun setBorderWidth(@Dimension dp: Int) {
         mBorderWidth = (dp * resources.displayMetrics.density).toInt()
