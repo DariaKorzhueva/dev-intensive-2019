@@ -68,5 +68,4 @@
             android:background="@drawable/bg_counter"
             android:layout_alignParentBottom="true"
             tools:text="11"/>
-
 </RelativeLayout>

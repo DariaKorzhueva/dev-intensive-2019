@@ -7,15 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_chat_single.*
-import kotlinx.android.synthetic.main.item_chat_single.view.*
-import kotlinx.android.synthetic.main.item_chat_single.view.iv_avatar_single
-import kotlinx.android.synthetic.main.item_chat_single.view.sv_indicator
-import kotlinx.android.synthetic.main.item_chat_single.view.tv_counter_single
-import kotlinx.android.synthetic.main.item_chat_single.view.tv_date_single
-import kotlinx.android.synthetic.main.item_chat_single.view.tv_message_single
-import kotlinx.android.synthetic.main.item_chat_single.view.tv_title_single
 import ru.skillbranch.devintensive.R
-import ru.skillbranch.devintensive.models.data.Chat
 import ru.skillbranch.devintensive.models.data.ChatItem
 
 class ChatAdapter : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
@@ -60,7 +52,7 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
 
             with(tv_counter_single) {
                 visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
-                text = item.messageCount
+                text = item.messageCount.toString()
             }
 
             tv_title_single.text = item.title

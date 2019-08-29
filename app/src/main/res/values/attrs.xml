@@ -9,7 +9,7 @@
         <attr name="cv_borderWidth" format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="AvatarIamgeView">
+    <declare-styleable name="AvatarImageView">
         <attr name="cv_borderColor" format="color"/>
         <attr name="cv_borderWidth" format="dimension"/>
     </declare-styleable>

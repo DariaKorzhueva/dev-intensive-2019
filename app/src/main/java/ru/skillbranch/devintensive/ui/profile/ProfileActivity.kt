@@ -64,11 +64,11 @@ class ProfileActivity : AppCompatActivity() {
         })
     }
 
-    override fun onSaveInstanceState(outState: Bundle?) {
+    /*override fun onSaveInstanceState(outState: Bundle?) {
         super.onSaveInstanceState(outState)
         outState?.putBoolean(IS_EDIT_MODE, isEditMode)
 
-    }
+    }*/
 
     private fun initViewModel() {
         /* Получение класса для ViewModel */
