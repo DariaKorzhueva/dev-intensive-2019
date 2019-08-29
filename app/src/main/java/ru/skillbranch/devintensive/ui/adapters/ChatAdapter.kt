@@ -1,16 +1,18 @@
 package ru.skillbranch.devintensive.ui.adapters
 
+import android.graphics.Color
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_chat_single.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 
-class ChatAdapter : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
+class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
     var items: List<ChatItem> = listOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SingleViewHolder {
@@ -24,19 +26,48 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
 
     override fun onBindViewHolder(holder: SingleViewHolder, position: Int) {
         Log.d("M_ChatAdapter", "onBindViewHolder $position")
-        holder.bind(items[position])
+        holder.bind(items[position], listener)
     }
 
     fun updateData(data: List<ChatItem>) {
+        Log.d(
+            "M_ChatAdapter", "update data adapter - new date ${data.size}" +
+                    "old data ${items.size} has: ${items.hashCode()}"
+        )
+
+        val diffCallback = object : DiffUtil.Callback() {
+            override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean = items[oldPos].id == items[newPos].id
+
+            override fun getOldListSize(): Int = items.size
+
+            override fun getNewListSize(): Int = data.size
+
+            override fun areContentsTheSame(oldPos: Int, newPos: Int): Boolean =
+                items[oldPos].hashCode() == data[newPos].hashCode()
+        }
+
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         items = data
-        notifyDataSetChanged()
+
+        /* Передача текуцщего адаптера для обновления его с конкретной позиции */
+        diffResult.dispatchUpdatesTo(this)
     }
 
-    inner class SingleViewHolder(convertView: View) : RecyclerView.ViewHolder(convertView), LayoutContainer {
+    inner class SingleViewHolder(convertView: View) : RecyclerView.ViewHolder(convertView), LayoutContainer,
+        ItemTouchViewHolder {
+        override fun onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY)
+        }
+
+        override fun onItemCleared() {
+            itemView.setBackgroundColor(Color.WHITE)
+        }
+
         override val containerView: View?
             get() = itemView
 
-        fun bind(item: ChatItem) {
+        fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
             if (item.avatar == null)
                 iv_avatar_single.setInitials(item.initials)
             else {
@@ -57,6 +88,9 @@ class ChatAdapter : RecyclerView.Adapter<ChatAdapter.SingleViewHolder>() {
 
             tv_title_single.text = item.title
             tv_message_single.text = item.shortDescription
+            itemView.setOnClickListener {
+                listener.invoke(item)
+            }
         }
     }
 }
