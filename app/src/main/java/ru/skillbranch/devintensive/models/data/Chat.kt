@@ -1,8 +1,8 @@
 package ru.skillbranch.devintensive.models.data
 
-import androidx.annotation.VisibleForTesting
+import android.support.annotation.VisibleForTesting
+import ru.skillbranch.devintensive.extensions.shortFormat
 import ru.skillbranch.devintensive.models.BaseMessage
-import ru.skillbranch.devintensive.models.User
 import ru.skillbranch.devintensive.utils.Utils
 import java.util.*
 
@@ -16,16 +16,22 @@ data class Chat(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
         //TODO implement me
+        return 0
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageDate(): Date? {
         //TODO implement me
+        return Date()
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageShort(): Pair<String?, String?> = when(val lastMessage = messages.lastOrNull()){
-       //TODO implement me
+    //fun lastMessageShort(): Pair<String?, String?> = when(val lastMessage = messages.lastOrNull()){
+    fun lastMessageShort(): String{
+        //128 символов
+        //TODO implement me
+
+        return "Сообщений ещё нет"
     }
 
     private fun isSingle(): Boolean = members.size == 1
@@ -38,7 +44,7 @@ data class Chat(
                 user.avatar,
                 Utils.toInitials(user.firstName, user.lastName) ?: "??",
                 "${user.firstName ?: ""} ${user.lastName ?: ""}",
-                lastMessageShort().first,
+                lastMessageShort(),
                 unreadableMessageCount(),
                 lastMessageDate()?.shortFormat(),
                 user.isOnline
@@ -49,12 +55,10 @@ data class Chat(
                 null,
                 "",
                 title,
-                lastMessageShort().first,
+                lastMessageShort(),
                 unreadableMessageCount(),
                 lastMessageDate()?.shortFormat(),
-                false,
-                ChatType.GROUP,
-                lastMessageShort().second
+                false
             )
         }
     }
@@ -65,6 +69,3 @@ enum class ChatType{
     GROUP,
     ARCHIVE
 }
-
-
-

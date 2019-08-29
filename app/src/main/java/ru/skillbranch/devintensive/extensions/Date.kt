@@ -15,6 +15,21 @@ fun Date.format(pattern: String = "HH:mm:ss dd.MM.yy"): String {
     return dateFormat.format(this)
 }
 
+/* Дата в коротком формате */
+fun Date.shortFormat(): String {
+    val pattern = if(this.isSameDay(Date())) "HH:mm" else "dd.MM.yy"
+    val dateFormat = SimpleDateFormat(pattern, Locale("ru"))
+
+    return dateFormat.format(this)
+}
+
+fun Date.isSameDay(date:Date): Boolean {
+    val day1 = this.time / DAY
+    val day2 = date.time / DAY
+
+    return day1 == day2
+}
+
 /* Добавление сдвига по времени */
 fun Date.add(value: Int, units: TimeUnits): Date {
     var time = this.time
@@ -36,6 +51,7 @@ enum class TimeUnits {
     MINUTE,
     HOUR,
     DAY;
+
     fun plural(number: Int): String {
 
         val strNumber = number.toString()
