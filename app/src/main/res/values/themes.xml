@@ -12,5 +12,7 @@
         <item name="colorDivider">@color/color_gray</item>
         <item name="colorIcon">@color/color_divider_dark</item>
 
+        <item name="android:windowActivityTransitions">true</item>
+        <item name="android:windowAnimationStyle">@style/ActivityTransitions</item>
     </style>
 </resources>

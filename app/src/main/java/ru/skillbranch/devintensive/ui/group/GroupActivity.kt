@@ -89,7 +89,7 @@ class GroupActivity : AppCompatActivity() {
         if(item?.itemId == android.R.id.home) {
             finish()
             overridePendingTransition(R.anim.idle, R.anim.bottom_down)
-            true
+            return true
         }else
         {
             return super.onOptionsItemSelected(item)

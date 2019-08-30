@@ -41,7 +41,7 @@ class GroupViewModel : ViewModel() {
         }
     }
 
-    private fun loadUsers(): List<UserItem> = groupRepository.loadUsers().map { it.toUserItem }
+    private fun loadUsers(): List<UserItem> = groupRepository.loadUsers().map { it.toUserItem() }
 
     fun handleRemoveChip(userId: String) {
         userItems.value = userItems.value!!.map {
