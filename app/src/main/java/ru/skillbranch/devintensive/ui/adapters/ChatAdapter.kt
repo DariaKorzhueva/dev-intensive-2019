@@ -67,7 +67,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
 
         items = data
 
-        /* Передача текуцщего адаптера для обновления его с конкретной позиции */
+        /* Передача текущего адаптера для обновления его с конкретной позиции */
         diffResult.dispatchUpdatesTo(this)
     }
 
@@ -78,7 +78,8 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         abstract fun bind(item: ChatItem, listener: (ChatItem) -> Unit)
     }
 
-    inner class SingleViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
+    inner class SingleViewHolder(convertView: View) : ChatItemViewHolder(convertView), LayoutContainer,
+        ItemTouchViewHolder {
         override fun onItemSelected() {
             itemView.setBackgroundColor(Color.LTGRAY)
         }
@@ -88,37 +89,38 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
-            if (item.avatar == null) {
+            if(item.avatar == null) {
                 Glide.with(itemView)
                     .clear(iv_avatar_single)
-                iv_avatar_single.setInitials(item.initials)
+                //iv_avatar_single.setInitials(item.initials)
             } else {
                 Glide.with(itemView)
                     .load(item.avatar)
                     .into(iv_avatar_single)
             }
 
-            sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
-
+            sv_indicator.visibility = if(item.isOnline) View.VISIBLE else View.GONE
             with(tv_date_single) {
-                visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
+                visibility = if(item.lastMessageDate != null) View.VISIBLE else View.GONE
                 text = item.lastMessageDate
             }
 
             with(tv_counter_single) {
-                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
+                visibility = if(item.messageCount > 0) View.VISIBLE else View.GONE
                 text = item.messageCount.toString()
             }
 
             tv_title_single.text = item.title
             tv_message_single.text = item.shortDescription
-            itemView.setOnClickListener {
+
+            itemView.setOnClickListener{
                 listener.invoke(item)
             }
+
         }
     }
 
-    inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView), ItemTouchViewHolder {
+    inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView), LayoutContainer, ItemTouchViewHolder {
         override fun onItemSelected() {
             itemView.setBackgroundColor(Color.LTGRAY)
         }
@@ -128,30 +130,30 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
-            iv_avatar_group.setInitials(item.initials)
-
-            sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
+            //iv_avatar_group.setInitials(item.initials)
 
             with(tv_date_group) {
-                visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
+                visibility = if(item.lastMessageDate != null) View.VISIBLE else View.GONE
                 text = item.lastMessageDate
             }
 
             with(tv_counter_group) {
-                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
+                visibility = if(item.messageCount > 0) View.VISIBLE else View.GONE
                 text = item.messageCount.toString()
-            }
-
-            with(tv_message_author) {
-                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
-                text = item.author
             }
 
             tv_title_group.text = item.title
             tv_message_group.text = item.shortDescription
-            itemView.setOnClickListener {
+
+            with(tv_message_author) {
+                visibility = if(item.messageCount > 0) View.VISIBLE else View.GONE
+                text = item.author
+            }
+
+            itemView.setOnClickListener{
                 listener.invoke(item)
             }
+
         }
     }
 }

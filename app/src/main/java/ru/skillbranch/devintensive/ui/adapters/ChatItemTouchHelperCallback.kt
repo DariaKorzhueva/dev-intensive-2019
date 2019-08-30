@@ -7,7 +7,6 @@ import android.graphics.RectF
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.snackbar.Snackbar
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 
@@ -42,7 +41,7 @@ class ChatItemTouchHelperCallback(
 
 
     override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
-        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE && viewHolder is ItemTouchHelper) {
+        if (actionState != ItemTouchHelper.ACTION_STATE_IDLE && viewHolder is ItemTouchViewHolder) {
             viewHolder.onItemSelected()
         }
 
@@ -50,7 +49,7 @@ class ChatItemTouchHelperCallback(
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-        if (viewHolder is ItemTouchHelper) viewHolder.onItemCleared()
+        if (viewHolder is ItemTouchViewHolder) viewHolder.onItemCleared()
 
         super.clearView(recyclerView, viewHolder)
     }
