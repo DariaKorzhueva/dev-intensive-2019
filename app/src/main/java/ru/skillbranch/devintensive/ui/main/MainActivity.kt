@@ -15,6 +15,14 @@ import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
 import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
+import android.R
+import androidx.core.view.accessibility.AccessibilityEventCompat.setAction
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.R
+import android.view.View
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +51,11 @@ class MainActivity : AppCompatActivity() {
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         val touchCallback = ChatItemTouchHelperCallback(chatAdapter) {
             viewModel.addToArchive(it.id)
-            Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
+            Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG).setAction("Отменить", object : View.OnClickListener() {
+                override fun onClick(v: View) {
+                    viewModel.restoreFromArchive(it.id)
+                }
+            })
         }
 
         val touchHelper = ItemTouchHelper(touchCallback)

@@ -7,6 +7,7 @@ import android.graphics.RectF
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 
