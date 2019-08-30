@@ -64,8 +64,8 @@ class CircleImageView : ImageView {
 
         val a = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView, defStyle, 0)
 
-        mBorderWidth = a.getDimension(R.styleable.CircleImageView_cv_borderWidth, mBorderWidth)
-        mBorderColor = a.getColor(R.styleable.CircleImageView_cv_borderColor, DEFAULT_BORDER_COLOR)
+        mBorderWidth = a.getDimension(R.styleable.CircleImageView_ci_borderWidth, mBorderWidth)
+        mBorderColor = a.getColor(R.styleable.CircleImageView_ci_borderColor, DEFAULT_BORDER_COLOR)
 
         a.recycle()
 
