@@ -17,19 +17,29 @@ data class Chat(
 ) {
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
-        //TODO implement me
+        var result: Int = 0
+
+        for (message in messages) {
+            if (!message.isReaded)
+                result++
+        }
+
+        return result
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageDate(): Date? {
-        //TODO implement me
+        if (messages.lastOrNull() == null)
+            return null
+
+        return messages.lastOrNull()?.date
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun lastMessageShort(): Pair<String?, String?> = when(val lastMessage = messages.lastOrNull()){
-        //TODO implement me
-
-        return "Сообщений ещё нет" to "@John Doe"
+    fun lastMessageShort(): Pair<String?, String?> = when (val lastMessage = messages.lastOrNull()) {
+        is TextMessage -> lastMessage.text to "${lastMessage.from?.firstName} ${lastMessage.from?.lastName}"
+        is ImageMessage -> "${lastMessage.from?.firstName} - отправил фото" to "${lastMessage.from?.firstName} ${lastMessage.from?.lastName}"
+        else -> "" to ""
     }
 
     private fun isSingle(): Boolean = members.size == 1
@@ -64,7 +74,7 @@ data class Chat(
     }
 }
 
-enum class ChatType{
+enum class ChatType {
     SINGLE,
     GROUP,
     ARCHIVE
