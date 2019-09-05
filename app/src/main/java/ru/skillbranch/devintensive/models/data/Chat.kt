@@ -19,6 +19,9 @@ data class Chat(
     fun unreadableMessageCount(): Int {
         var result: Int = 0
 
+        if(isArchived)
+            return result
+
         for (message in messages) {
             if (!message.isReaded)
                 result++
@@ -37,8 +40,8 @@ data class Chat(
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun lastMessageShort(): Pair<String?, String?> = when (val lastMessage = messages.lastOrNull()) {
-        is TextMessage -> lastMessage.text to "${lastMessage.from?.firstName} ${lastMessage.from?.lastName}"
-        is ImageMessage -> "${lastMessage.from?.firstName} - отправил фото" to "${lastMessage.from?.firstName} ${lastMessage.from?.lastName}"
+        is TextMessage -> lastMessage.text to "${lastMessage.from?.firstName}"
+        is ImageMessage -> "${lastMessage.from?.firstName} - отправил фото" to "${lastMessage.from?.firstName}"
         else -> "" to ""
     }
 
