@@ -17,7 +17,6 @@ import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
 import android.view.View
 
-
 class MainActivity : AppCompatActivity() {
 
     private lateinit var chatAdapter: ChatAdapter

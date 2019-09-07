@@ -32,6 +32,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChatItemViewHolder {
         val inflater = LayoutInflater.from(parent.context)
+
         return when (viewType) {
             SINGLE_TYPE -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
             GROUP_TYPE -> GroupViewHolder(inflater.inflate(R.layout.item_chat_group, parent, false))
@@ -42,18 +43,12 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
     override fun getItemCount(): Int = items.size
 
     override fun onBindViewHolder(holder: ChatItemViewHolder, position: Int) {
-        Log.d("M_ChatAdapter", "onBindViewHolder $position")
         holder.bind(items[position], listener)
     }
 
     fun updateData(data: List<ChatItem>) {
-        Log.d(
-            "M_ChatAdapter", "update data adapter - new date ${data.size}" +
-                    "old data ${items.size} has: ${items.hashCode()}"
-        )
-
         val diffCallback = object : DiffUtil.Callback() {
-            override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean = items[oldPos].id == items[newPos].id
+            override fun areItemsTheSame(oldPos: Int, newPos: Int): Boolean = items[oldPos].id == data[newPos].id
 
             override fun getOldListSize(): Int = items.size
 
@@ -89,7 +84,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         }
 
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
-            if(item.avatar == null) {
+            if (item.avatar == null) {
                 Glide.with(itemView)
                     .clear(iv_avatar_single)
                 //iv_avatar_single.setInitials(item.initials)
@@ -99,28 +94,30 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
                     .into(iv_avatar_single)
             }
 
-            sv_indicator.visibility = if(item.isOnline) View.VISIBLE else View.GONE
+            sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
+            
             with(tv_date_single) {
-                visibility = if(item.lastMessageDate != null) View.VISIBLE else View.GONE
+                visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
                 text = item.lastMessageDate
             }
 
             with(tv_counter_single) {
-                visibility = if(item.messageCount > 0) View.VISIBLE else View.GONE
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
                 text = item.messageCount.toString()
             }
 
             tv_title_single.text = item.title
             tv_message_single.text = item.shortDescription
 
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 listener.invoke(item)
             }
 
         }
     }
 
-    inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView), LayoutContainer, ItemTouchViewHolder {
+    inner class GroupViewHolder(convertView: View) : ChatItemViewHolder(convertView), LayoutContainer,
+        ItemTouchViewHolder {
         override fun onItemSelected() {
             itemView.setBackgroundColor(Color.LTGRAY)
         }
@@ -133,12 +130,12 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
             //iv_avatar_group.setInitials(item.initials)
 
             with(tv_date_group) {
-                visibility = if(item.lastMessageDate != null) View.VISIBLE else View.GONE
+                visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
                 text = item.lastMessageDate
             }
 
             with(tv_counter_group) {
-                visibility = if(item.messageCount > 0) View.VISIBLE else View.GONE
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
                 text = item.messageCount.toString()
             }
 
@@ -146,11 +143,11 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
             tv_message_group.text = item.shortDescription
 
             with(tv_message_author) {
-                visibility = if(item.messageCount > 0) View.VISIBLE else View.GONE
+                visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
                 text = item.author
             }
 
-            itemView.setOnClickListener{
+            itemView.setOnClickListener {
                 listener.invoke(item)
             }
 
