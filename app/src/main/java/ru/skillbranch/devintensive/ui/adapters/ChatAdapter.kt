@@ -1,7 +1,6 @@
 package ru.skillbranch.devintensive.ui.adapters
 
 import android.graphics.Color
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -95,7 +94,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
             }
 
             sv_indicator.visibility = if (item.isOnline) View.VISIBLE else View.GONE
-            
+
             with(tv_date_single) {
                 visibility = if (item.lastMessageDate != null) View.VISIBLE else View.GONE
                 text = item.lastMessageDate

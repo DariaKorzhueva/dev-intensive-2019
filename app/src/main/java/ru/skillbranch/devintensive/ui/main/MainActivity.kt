@@ -36,9 +36,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-
         chatAdapter = ChatAdapter {
-            Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG)
+            Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
         }
 
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
