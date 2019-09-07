@@ -15,7 +15,4 @@
 
     </style>
 
-    <style name="SplashTheme" parent="Theme.MaterialComponents.NoActionBar">
-        <item name="android:windowBackground">@color/color_accent</item>
-    </style>
 </resources>
