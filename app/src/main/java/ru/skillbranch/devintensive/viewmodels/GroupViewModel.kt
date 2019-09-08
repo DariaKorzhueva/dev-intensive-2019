@@ -1,6 +1,5 @@
 package ru.skillbranch.devintensive.viewmodels
 
-import android.service.autofill.Transformation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.Transformations
@@ -13,7 +12,7 @@ class GroupViewModel : ViewModel() {
     private val query = mutableLiveData("")
     private val groupRepository = GroupRepository
     private val userItems = mutableLiveData(loadUsers())
-    private val selectedIems = Transformations.map(userItems) { users -> users.filter { it.isSelected } }
+    private val selectedItems = Transformations.map(userItems) { users -> users.filter { it.isSelected } }
 
     fun getUsersData(): LiveData<List<UserItem>> {
         val result = MediatorLiveData<List<UserItem>>()
@@ -32,7 +31,7 @@ class GroupViewModel : ViewModel() {
         return result
     }
 
-    fun getSelectedData(): LiveData<List<UserItem>> = selectedIems
+    fun getSelectedData(): LiveData<List<UserItem>> = selectedItems
 
     fun handleSelectedItem(userId: String) {
         userItems.value = userItems.value!!.map {
@@ -55,6 +54,6 @@ class GroupViewModel : ViewModel() {
     }
 
     fun handleCreateGroup() {
-        groupRepository.createChat(selectedIems.value!!)
+        groupRepository.createChat(selectedItems.value!!)
     }
 }

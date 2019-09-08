@@ -64,7 +64,7 @@ class GroupActivity : AppCompatActivity() {
     }
 
     private fun toggleFab(isShow: Boolean) {
-        if(isShow) fab.show()
+        if (isShow) fab.show()
         else fab.hide()
     }
 
@@ -86,12 +86,11 @@ class GroupActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        if(item?.itemId == android.R.id.home) {
+        if (item?.itemId == android.R.id.home) {
             finish()
             overridePendingTransition(R.anim.idle, R.anim.bottom_down)
             return true
-        }else
-        {
+        } else {
             return super.onOptionsItemSelected(item)
         }
     }
@@ -118,17 +117,19 @@ class GroupActivity : AppCompatActivity() {
         chip_group.addView(chip)
     }
 
-    private fun updateChips(listUsers: List<UserItem>) {
-        chip_group.visibility = if (listUsers.isEmpty()) View.GONE else View.VISIBLE
+    private fun updateChips(listUser: List<UserItem>) {
+        chip_group.visibility = if (listUser.isEmpty()) View.GONE else View.VISIBLE
 
-        val users = listUsers.associate { user -> user.id to user }
+        val users = listUser
+            .associate { user -> user.id to user }
             .toMutableMap()
 
-        val views = chip_group.children.associate { view -> view.tag to view }
-
+        val views = chip_group.children.associate { view ->
+            view.tag to view
+        }
 
         for ((k, v) in views) {
-            if (users.containsKey(k)) chip_group.removeView(v)
+            if (!users.containsKey(k)) chip_group.removeView(v)
             else users.remove(k)
         }
 

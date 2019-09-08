@@ -9,12 +9,14 @@
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@color/color_primary"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
 
         </androidx.appcompat.widget.Toolbar>
@@ -26,6 +28,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:layout_marginTop="?attr/actionBarSize">
+
         <com.google.android.material.chip.ChipGroup
                 android:id="@+id/chip_group"
                 android:layout_width="match_parent"

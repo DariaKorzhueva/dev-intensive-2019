@@ -111,7 +111,6 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
             itemView.setOnClickListener {
                 listener.invoke(item)
             }
-
         }
     }
 

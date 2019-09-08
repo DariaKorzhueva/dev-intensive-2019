@@ -16,7 +16,7 @@ data class User(
 ) {
     fun toUserItem(): UserItem {
         val lastActivity = when {
-            lastVisit == null -> "Ещё ни разу не заходид"
+            lastVisit == null -> "Ещё ни разу не заходил"
             isOnline -> "online"
             else -> "Последний раз был ${lastVisit.humanizeDiff()}"
         }
@@ -24,12 +24,12 @@ data class User(
         return UserItem(
             id,
             "${firstName.orEmpty()} ${lastName.orEmpty()}",
-            Utils.toInitials(firstName,lastName),
+            Utils.toInitials(firstName, lastName),
             avatar,
             lastActivity,
             false,
             isOnline
-            )
+        )
     }
 
     constructor(id: String, firstName: String?, lastName: String?) : this(
