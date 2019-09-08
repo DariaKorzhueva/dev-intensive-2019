@@ -15,6 +15,25 @@ data class Chat(
     var messages: MutableList<BaseMessage> = mutableListOf(),
     var isArchived: Boolean = false
 ) {
+    companion object {
+        fun createArchiveChat(chats: List<Chat>): ChatItem {
+            val lastChat = chats.sortedBy { it.lastMessageDate() }.last()
+
+            return ChatItem(
+                "-1",
+                null,
+                "",
+                "Архив чатов",
+                lastChat.lastMessageShort().first,
+                chats.sumBy { it.unreadableMessageCount() },
+                lastChat.lastMessageDate()?.shortFormat(),
+                false,
+                ChatType.ARCHIVE,
+                lastChat.lastMessageShort().second
+            )
+        }
+    }
+
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun unreadableMessageCount(): Int {
         return messages.count { !it.isReaded }

@@ -1,5 +1,7 @@
 package ru.skillbranch.devintensive.ui.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.item_chat_single.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
 import ru.skillbranch.devintensive.models.data.ChatType
+import ru.skillbranch.devintensive.ui.archive.ArchiveActivity
 
 class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatAdapter.ChatItemViewHolder>() {
     companion object {
@@ -34,7 +37,7 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         val inflater = LayoutInflater.from(parent.context)
 
         return when (viewType) {
-            ARCHIVE_TYPE -> ArchiveViewHolder(inflater.inflate(R.layout.item_chat_archive, parent, false))
+            ARCHIVE_TYPE -> ArchiveViewHolder(parent.context, inflater.inflate(R.layout.item_chat_archive, parent, false))
             SINGLE_TYPE -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
             GROUP_TYPE -> GroupViewHolder(inflater.inflate(R.layout.item_chat_group, parent, false))
             else -> SingleViewHolder(inflater.inflate(R.layout.item_chat_single, parent, false))
@@ -154,7 +157,9 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
         }
     }
 
-    inner class ArchiveViewHolder(convertView: View) : ChatItemViewHolder(convertView), LayoutContainer{
+    inner class ArchiveViewHolder(ctx: Context, convertView: View) : ChatItemViewHolder(convertView), LayoutContainer{
+        val context = ctx
+
         override fun bind(item: ChatItem, listener: (ChatItem) -> Unit) {
             tv_title_archive.text = item.title
             tv_message_archive.text = item.shortDescription
@@ -178,9 +183,9 @@ class ChatAdapter(val listener: (ChatItem) -> Unit) : RecyclerView.Adapter<ChatA
             }
 
             itemView.setOnClickListener {
-                listener.invoke(item)
+                val intent = Intent(context, ArchiveActivity::class.java)
+                context.startActivity(intent)
             }
-
         }
     }
 }
