@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
                 override fun onClick(v: View) {
                     viewModel.restoreFromArchive(it.id)
                 }
-            })
+            }).show()
         }
 
         val touchHelper = ItemTouchHelper(touchCallback)
