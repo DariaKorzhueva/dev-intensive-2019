@@ -27,6 +27,7 @@ class ArchiveActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_archive)
+        setTitle(getString(R.string.archive_activity_title))
         initToolbar()
         initViews()
         initViewModel()

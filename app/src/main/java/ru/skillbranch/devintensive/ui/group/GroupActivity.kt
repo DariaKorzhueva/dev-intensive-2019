@@ -28,6 +28,7 @@ class GroupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_group)
+        setTitle(getString(R.string.group_activity_title))
 
         initToolbar()
         initViews()
