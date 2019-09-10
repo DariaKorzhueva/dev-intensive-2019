@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setTitle(getString(R.string.main_activity_title))
         initToolbar()
         initViews()
         initViewModel()
