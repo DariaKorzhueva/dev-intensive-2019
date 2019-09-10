@@ -28,7 +28,7 @@ object PreferencesRepository {
     }
 
     /* Получение информации о теме */
-    fun getAppTheme():Int = prefs.getInt(APP_THEME,AppCompatDelegate.MODE_NIGHT_NO)
+    fun getAppTheme():Int = prefs.getInt(APP_THEME,AppCompatDelegate.MODE_NIGHT_YES)
 
     /* Сохранение профиля */
     fun saveProfile(profile: Profile) {

@@ -3,7 +3,7 @@
                 xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                 android:layout_height="@dimen/item_size"
                 android:padding="@dimen/spacing_normal_16"
-                android:background="@android:color/white">
+                android:background="?attr/colorItemBack">
 
     <ImageView
             android:id="@+id/iv_avatar_archive"
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/archive_title"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorChatTitle"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             android:layout_toRightOf="@+id/iv_avatar_archive"
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Когда я проходил интенсив, я мало спал"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorChatText"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             android:layout_toRightOf="@+id/tv_message_author_archive"

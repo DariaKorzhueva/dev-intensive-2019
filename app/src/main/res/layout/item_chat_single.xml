@@ -2,8 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                 android:layout_height="@dimen/item_size"
+                android:backgroundTint="?attr/colorItemBack"
                 android:padding="@dimen/spacing_normal_16"
-                android:background="@android:color/white">
+                android:background="?attr/colorItemBack">
 
     <ru.skillbranch.devintensive.ui.custom.CircleImageView
             android:id="@+id/iv_avatar_single"
@@ -25,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="chat title"
-            android:textColor="@color/color_primary"
+            android:textColor="?attr/colorChatTitle"
             android:fontFamily="sans-serif-medium"
             android:layout_toLeftOf="@+id/tv_date_single"
             android:textSize="14sp"
@@ -38,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             tools:text="Когда я проходил интенсив, я мало спал"
-            android:textColor="@color/color_gray_dark"
+            android:textColor="?attr/colorChatText"
             android:fontFamily="sans-serif-medium"
             android:textSize="14sp"
             android:layout_toRightOf="@+id/iv_avatar_single"

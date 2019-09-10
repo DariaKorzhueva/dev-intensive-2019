@@ -12,6 +12,9 @@
 
     <color name="color_divider_dark">#1F000000</color>
     <color name="color_divider_light">#1FFFFFFF</color>
-    <color name="color_indicator">#581F99</color>
+    <color name="color_counter">#581F99</color>
     <color name="color_green">#4FD149</color>
+
+    <color name="color_toolbar">#272727</color>
+    <color name="color_item_back_dark">#1D1D1D</color>
 </resources>

@@ -9,10 +9,21 @@
 
 
         <item name="colorAccentedSurface">@color/color_divider_dark</item>
-        <item name="colorDivider">@android:color/white</item>
-        <item name="colorIcon">@color/color_divider_dark</item>
+        <item name="colorDivider">@color/color_divider_dark</item>
+        <item name="colorIcon">@android:color/white</item>
         <item name="android:statusBarColor">@android:color/black</item>
 
+        <item name="colorToolbar">@color/color_toolbar</item>
+        <item name="colorIndicator">@color/color_accent_night</item>
+        <item name="colorItemBack">@color/color_item_back_dark</item>
+        <item name="colorCounter">@color/color_gray_dark</item>
+        <item name="colorChatTitle">@android:color/white</item>
+        <item name="colorChatText">@color/color_gray</item>
+        <item name="colorChatAuthorMessage">@android:color/white</item>
+        <item name="colorIconDone">@color/color_accent_night</item>
+        <item name="colorChipBackground">@color/color_item_back_dark</item>
+        <item name="colorChipForeground">@color/color_gray</item>
+        <item name="colorArchivedBack">@color/color_accent_night</item>
     </style>
 
 </resources>

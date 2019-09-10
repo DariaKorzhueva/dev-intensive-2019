@@ -21,11 +21,10 @@ class App:Application() {
 
     override fun onCreate() {
         super.onCreate()
-        /*PreferencesRepository.getAppTheme().also{
+        PreferencesRepository.getAppTheme().also{
             AppCompatDelegate.setDefaultNightMode(it)
-        }*/
+        }
 
-        setTheme(MODE_NIGHT_YES)
         //TODO call once when application created
     }
 }

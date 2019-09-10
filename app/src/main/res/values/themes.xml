@@ -13,5 +13,17 @@
 
         <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowAnimationStyle">@style/ActivityTransitions</item>
+
+        <item name="colorToolbar">@color/color_primary</item>
+        <item name="colorIndicator">@color/color_green</item>
+        <item name="colorItemBack">@android:color/white</item>
+        <item name="colorCounter">@color/color_counter</item>
+        <item name="colorChatTitle">@color/color_primary</item>
+        <item name="colorChatText">@color/color_gray_dark</item>
+        <item name="colorChatAuthorMessage">@color/color_primary</item>
+        <item name="colorIconDone">@color/color_primary</item>
+        <item name="colorChipBackground">@color/color_primary</item>
+        <item name="colorChipForeground">@android:color/white</item>
+        <item name="colorArchivedBack">@color/color_primary_dark</item>
     </style>
 </resources>
