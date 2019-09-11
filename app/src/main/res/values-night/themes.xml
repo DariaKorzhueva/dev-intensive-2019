@@ -24,6 +24,7 @@
         <item name="colorChipBackground">@color/color_item_back_dark</item>
         <item name="colorChipForeground">@color/color_gray</item>
         <item name="colorArchivedBack">@color/color_accent_night</item>
+        <item name="colorArchiveIcon">@color/color_gray_dark</item>
     </style>
 
 </resources>

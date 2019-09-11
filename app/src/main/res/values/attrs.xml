@@ -28,4 +28,5 @@
     <attr name="colorChipBackground" format="reference"/>
     <attr name="colorChipForeground" format="reference"/>
     <attr name="colorArchivedBack" format="reference"/>
+    <attr name="colorArchiveIcon" format="reference"/>
 </resources>

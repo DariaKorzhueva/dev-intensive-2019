@@ -25,5 +25,6 @@
         <item name="colorChipBackground">@color/color_primary</item>
         <item name="colorChipForeground">@android:color/white</item>
         <item name="colorArchivedBack">@color/color_primary_dark</item>
+        <item name="colorArchiveIcon">@color/color_gray</item>
     </style>
 </resources>
