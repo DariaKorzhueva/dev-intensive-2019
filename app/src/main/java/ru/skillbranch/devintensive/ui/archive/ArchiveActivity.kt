@@ -14,8 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_archive.*
 import ru.skillbranch.devintensive.R
+import ru.skillbranch.devintensive.extensions.setBackgroundDrawable
+import ru.skillbranch.devintensive.extensions.setTextColor
 import ru.skillbranch.devintensive.ui.adapters.ChatAdapter
 import ru.skillbranch.devintensive.ui.adapters.ChatItemTouchHelperCallback
+import ru.skillbranch.devintensive.utils.Utils
 import ru.skillbranch.devintensive.viewmodels.ArchiveViewModel
 
 class ArchiveActivity : AppCompatActivity() {
@@ -72,13 +75,19 @@ class ArchiveActivity : AppCompatActivity() {
 
     private fun initViews() {
         chatAdapter = ChatAdapter {
-            Snackbar.make(rv_archive_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(rv_archive_list, "Click on ${it.title}", Snackbar.LENGTH_LONG)
+                .setBackgroundDrawable(R.drawable.bg_snackbar)
+                .setTextColor(Utils.getColorByAttr(this, R.attr.colorSnackbarText)).show()
+
         }
 
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
         val touchCallback = ChatItemTouchHelperCallback("archive", chatAdapter) {
             viewModel.restoreFromArchive(it.id)
             Snackbar.make(rv_archive_list, "Вы точно хотите извлечь ${it.title} из архива?", Snackbar.LENGTH_LONG)
+                .setBackgroundDrawable(R.drawable.bg_snackbar)
+                .setTextColor(Utils.getColorByAttr(this, R.attr.colorSnackbarText))
+                .setActionTextColor(Utils.getColorByAttr(this, R.attr.colorSnackbarAction))
                 .setAction("Отменить", object : View.OnClickListener {
                     override fun onClick(v: View) {
                         viewModel.addToArchive(it.id)

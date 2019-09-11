@@ -19,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.toolbar
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.UserItem
 import ru.skillbranch.devintensive.ui.adapters.UserAdapter
+import ru.skillbranch.devintensive.utils.Utils.getColorByAttr
 import ru.skillbranch.devintensive.viewmodels.GroupViewModel
 
 class GroupActivity : AppCompatActivity() {
@@ -109,8 +110,8 @@ class GroupActivity : AppCompatActivity() {
             isCloseIconVisible = true
             tag = user.id
             isClickable = true
-            closeIconTint = ColorStateList.valueOf(Color.WHITE)
-            chipBackgroundColor = ColorStateList.valueOf(getColor(R.color.color_primary_light))
+            closeIconTint = ColorStateList.valueOf(getColorByAttr(this.context, R.attr.colorChipCloseIcon))
+            chipBackgroundColor = ColorStateList.valueOf(getColorByAttr(this.context, R.attr.colorChipBackground))
             setTextColor(Color.WHITE)
         }
 

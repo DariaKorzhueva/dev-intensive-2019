@@ -18,6 +18,10 @@ import ru.skillbranch.devintensive.ui.group.GroupActivity
 import ru.skillbranch.devintensive.viewmodels.MainViewModel
 import android.view.View
 import androidx.appcompat.widget.SearchView
+import ru.skillbranch.devintensive.extensions.setBackgroundDrawable
+import ru.skillbranch.devintensive.extensions.setTextColor
+import ru.skillbranch.devintensive.utils.Utils
+import ru.skillbranch.devintensive.utils.Utils.getColorByAttr
 
 class MainActivity : AppCompatActivity() {
 
@@ -62,17 +66,23 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews() {
         chatAdapter = ChatAdapter {
-            Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG).show()
+            Snackbar.make(rv_chat_list, "Click on ${it.title}", Snackbar.LENGTH_LONG)
+                .setBackgroundDrawable(R.drawable.bg_snackbar)
+                .setTextColor(Utils.getColorByAttr(this, R.attr.colorSnackbarText)).show()
         }
 
         val divider = DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
-        val touchCallback = ChatItemTouchHelperCallback("main",chatAdapter) {
+        val touchCallback = ChatItemTouchHelperCallback("main", chatAdapter) {
             viewModel.addToArchive(it.id)
-            Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG).setAction("Отменить", object : View.OnClickListener {
-                override fun onClick(v: View) {
-                    viewModel.restoreFromArchive(it.id)
-                }
-            }).show()
+            Snackbar.make(rv_chat_list, "Вы точно хотите добавить ${it.title} в архив?", Snackbar.LENGTH_LONG)
+                .setBackgroundDrawable(R.drawable.bg_snackbar)
+                .setTextColor(getColorByAttr(this, R.attr.colorSnackbarText))
+                .setActionTextColor(getColorByAttr(this, R.attr.colorSnackbarAction))
+                .setAction("Отменить", object : View.OnClickListener {
+                    override fun onClick(v: View) {
+                        viewModel.restoreFromArchive(it.id)
+                    }
+                }).show()
         }
 
         val touchHelper = ItemTouchHelper(touchCallback)

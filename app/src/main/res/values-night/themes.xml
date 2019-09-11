@@ -13,18 +13,23 @@
         <item name="colorIcon">@android:color/white</item>
         <item name="android:statusBarColor">@android:color/black</item>
 
+        <item name="colorBackground">@color/color_black_pale</item>
         <item name="colorToolbar">@color/color_toolbar</item>
         <item name="colorIndicator">@color/color_accent_night</item>
-        <item name="colorItemBack">@color/color_item_back_dark</item>
+        <item name="colorItemBack">@color/color_graphite_black</item>
         <item name="colorCounter">@color/color_gray_dark</item>
         <item name="colorChatTitle">@android:color/white</item>
         <item name="colorChatText">@color/color_gray</item>
         <item name="colorChatAuthorMessage">@android:color/white</item>
         <item name="colorIconDone">@color/color_accent_night</item>
-        <item name="colorChipBackground">@color/color_item_back_dark</item>
-        <item name="colorChipForeground">@color/color_gray</item>
-        <item name="colorArchivedBack">@color/color_accent_night</item>
+        <item name="colorChipBackground">@color/color_graphite_black</item>
+        <item name="colorChipCloseIcon">@color/color_gray</item>
+        <item name="colorArchivedBackground">@color/color_accent_night</item>
         <item name="colorArchiveIcon">@color/color_gray_dark</item>
+        <item name="colorArchiveOnSwipe">@color/color_accent_night</item>
+        <item name="colorSnackbarBackground">@android:color/white</item>
+        <item name="colorSnackbarAction">@color/color_accent_night</item>
+        <item name="colorSnackbarText">@color/color_black_pale</item>
     </style>
 
 </resources>

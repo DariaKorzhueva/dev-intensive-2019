@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.models.data.ChatItem
+import ru.skillbranch.devintensive.utils.Utils.getColorByAttr
 
 class ChatItemTouchHelperCallback(
     val activity: String,
@@ -106,7 +107,7 @@ class ChatItemTouchHelperCallback(
         }
 
         with(bgPaint) {
-            color = itemView.resources.getColor(R.color.color_primary_dark, itemView.context.theme)
+            color = getColorByAttr(itemView.context, R.attr.colorArchiveOnSwipe)
 
         }
 

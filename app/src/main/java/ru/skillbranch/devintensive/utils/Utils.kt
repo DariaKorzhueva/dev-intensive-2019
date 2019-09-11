@@ -1,5 +1,9 @@
 package ru.skillbranch.devintensive.utils
 
+import android.content.Context
+import android.util.TypedValue
+import ru.skillbranch.devintensive.R
+
 object Utils {
     fun parseFullName(fullName: String?): Pair<String?, String?> {
         if (fullName == null || fullName == "" || fullName == " ") {
@@ -190,5 +194,12 @@ object Utils {
         }
 
         return false;
+    }
+
+    /* Получение цвета по атрибуту */
+    fun getColorByAttr(context: Context, attr: Int): Int {
+        val value = TypedValue()
+        context.theme.resolveAttribute(attr, value, true)
+        return value.data
     }
 }
