@@ -23,7 +23,7 @@
         <item name="colorChatText">@color/color_gray_dark</item>
         <item name="colorChatAuthorMessage">@color/color_primary</item>
         <item name="colorIconDone">@color/color_primary</item>
-        <item name="colorChipBackground">@color/color_primary</item>
+        <item name="colorChipBackground">@color/color_primary_light</item>
         <item name="colorChipCloseIcon">@android:color/white</item>
         <item name="colorArchivedBackground">@color/color_primary_dark</item>
         <item name="colorArchiveIcon">@color/color_gray</item>
