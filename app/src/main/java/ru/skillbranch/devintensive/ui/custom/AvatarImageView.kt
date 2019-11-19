@@ -117,7 +117,7 @@ class AvatarImageView @JvmOverloads constructor(
         val half = (borderWidth / 2).toInt()
         borderRect.set(viewRect)
 
-        viewRect.inset(half, half)
+        borderRect.inset(half, half)
 
         canvas.drawOval(borderRect.toRectF(), borderPaint)
 
