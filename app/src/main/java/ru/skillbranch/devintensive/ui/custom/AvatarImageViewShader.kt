@@ -9,11 +9,10 @@ import androidx.annotation.ColorInt
 import androidx.annotation.Px
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.graphics.toRectF
-import kotlinx.android.synthetic.main.activity_profile_constraint.view.*
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.extensions.dpToPx
 
-class AvatarImageViewMask @JvmOverloads constructor(
+class AvatarImageViewShader @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -30,12 +29,9 @@ class AvatarImageViewMask @JvmOverloads constructor(
     private var borderColor: Int = Color.WHITE
     private var initials: String = "??"
 
-    private val maskPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val avatarPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val borderPaint = Paint(Paint.ANTI_ALIAS_FLAG)
     private val viewRect = Rect()
-    private lateinit var resultBm: Bitmap
-    private lateinit var maskBm: Bitmap
-    private lateinit var srcBm: Bitmap
 
     init {
         if (attrs != null) {
@@ -58,7 +54,7 @@ class AvatarImageViewMask @JvmOverloads constructor(
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
-        Log.e("AvatarImageViewMask", "onMeasure")
+        Log.e("AvatarImageViewShader", "onMeasure")
 
         val initSize = resolveDefaultSize(widthMeasureSpec)
         setMeasuredDimension(initSize, initSize)
@@ -66,7 +62,7 @@ class AvatarImageViewMask @JvmOverloads constructor(
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        Log.e("AvatarImageViewMask", "onSizeChanged")
+        Log.e("AvatarImageViewShader", "onSizeChanged")
         if (w == 0) return
         with(viewRect) {
             left = 0
@@ -75,13 +71,14 @@ class AvatarImageViewMask @JvmOverloads constructor(
             bottom = h
         }
 
-        prepareBitmaps(w, h)
+        prepareShader(w, h)
     }
 
     override fun onDraw(canvas: Canvas?) {
         //super.onDraw(canvas)
-        Log.e("AvatarImageViewMask", "onDraw")
-        canvas?.drawBitmap(resultBm, viewRect, viewRect, null)
+        Log.e("AvatarImageViewShader", "onDraw")
+
+        canvas?.drawOval(viewRect.toRectF(),avatarPaint)
 
         //resize rect
         val half = (borderWidth / 2).toInt()
@@ -101,11 +98,6 @@ class AvatarImageViewMask @JvmOverloads constructor(
     }
 
     private fun setup() {
-        with(maskPaint) {
-            color = Color.RED
-            style = Paint.Style.FILL
-        }
-
         with(borderPaint) {
             style = Paint.Style.STROKE
             strokeWidth = borderWidth
@@ -113,20 +105,8 @@ class AvatarImageViewMask @JvmOverloads constructor(
         }
     }
 
-    private fun prepareBitmaps(w: Int, h: Int) {
-        //prepare buffer this
-
-        maskBm = Bitmap.createBitmap(w, h, Bitmap.Config.ALPHA_8)
-        resultBm = maskBm.copy(Bitmap.Config.ARGB_8888, true)
-
-        val maskCanvas = Canvas(maskBm)
-        maskCanvas.drawOval(viewRect.toRectF(), maskPaint)
-        maskPaint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
-        srcBm = drawable.toBitmap(w, h, Bitmap.Config.ARGB_8888)
-
-        val resultCanvas = Canvas(resultBm)
-        resultCanvas.drawBitmap(maskBm, viewRect, viewRect, null)
-        resultCanvas.drawBitmap(srcBm, viewRect, viewRect, maskPaint)
-
+    private fun prepareShader(w: Int, h: Int) {
+        val srcBm = drawable.toBitmap(w, h, Bitmap.Config.ARGB_8888)
+        avatarPaint.shader = BitmapShader(srcBm,Shader.TileMode.CLAMP,Shader.TileMode.CLAMP)
     }
 }
