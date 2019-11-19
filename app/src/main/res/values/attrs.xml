@@ -14,6 +14,12 @@
         <attr name="aiv_borderWidth" format="dimension"/>
     </declare-styleable>
 
+    <declare-styleable name="AvatarImageViewMask">
+        <attr name="aiv_borderColor" format="color"/>
+        <attr name="aiv_borderWidth" format="dimension"/>
+        <attr name="aiv_initials" format="string"/>
+    </declare-styleable>
+
     <attr name="colorBackground" format="reference"/>
     <attr name="colorAccentedSurface" format="reference"/>
     <attr name="colorDivider" format="reference"/>
