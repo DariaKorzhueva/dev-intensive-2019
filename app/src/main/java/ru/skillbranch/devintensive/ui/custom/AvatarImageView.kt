@@ -125,10 +125,16 @@ class AvatarImageView @JvmOverloads constructor(
 
     fun setInitials(initials: String) {
         Log.e("AvatarImageView", "setInitials")
-        this.initials = initials
-        if (!isAvatarMode) {
-            invalidate()
-        }
+
+        var init: String = initials
+
+        if (initials == "")
+            init = "??"
+
+        this.initials = init
+
+        invalidate()
+
     }
 
     fun setBoderColor(@ColorInt color: Int) {
@@ -170,17 +176,17 @@ class AvatarImageView @JvmOverloads constructor(
 
     override fun onRestoreInstanceState(state: Parcelable?) {
         Log.e("AvatarImageView", "onRestoreInstanceState")
-        if(state is SavedState){
+        if (state is SavedState) {
             super.onRestoreInstanceState(state)
             isAvatarMode = state.isAvatarMode
             borderWidth = state.borderWidth
             borderColor = state.borderColor
 
-            with(borderPaint){
+            with(borderPaint) {
                 color = borderColor
                 strokeWidth = borderWidth
             }
-        }else{
+        } else {
             super.onRestoreInstanceState(state)
         }
     }
@@ -277,7 +283,7 @@ class AvatarImageView @JvmOverloads constructor(
         var borderWidth: Float = 0f
         var borderColor: Int = 0
 
-        constructor(superState: Parcelable?):super(superState)
+        constructor(superState: Parcelable?) : super(superState)
 
         constructor(src: Parcel) : super(src) {
             //restore from parcel
@@ -289,7 +295,7 @@ class AvatarImageView @JvmOverloads constructor(
         override fun writeToParcel(dst: Parcel, flags: Int) {
             //write state to parcel
             super.writeToParcel(dst, flags)
-            dst.writeInt(if(isAvatarMode) 1 else 0)
+            dst.writeInt(if (isAvatarMode) 1 else 0)
             dst.writeFloat(borderWidth)
             dst.writeInt(borderColor)
         }
